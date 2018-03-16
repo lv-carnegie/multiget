@@ -10,14 +10,14 @@ from urllib.request import urlopen, Request
 # define function to request individual chunks
 def fetchChunk(url, start, end, results, index): 
    
-	  # reads chunk between start and end range 
-		# saves chunk to indexed results list
-		
-    headers = dict(Range = 'bytes=%d-%d' % (start, end))
-    request = Request(url, headers=headers)
-    results[index] = urlopen(request).read()
+	# reads chunk between start and end range 
+	# saves chunk to indexed results list
+	
+	headers = dict(Range = 'bytes=%d-%d' % (start, end))
+	request = Request(url, headers=headers)
+	results[index] = urlopen(request).read()
 
-    return True
+	return True
 
 
 # define main download function		
@@ -49,28 +49,29 @@ def multiGet(url, n, chunk_size, output_path):
 	# loop through the chunks
 	for i in range(n):
 			
-			# calculate chunk start and end bytyes inclusive
-			start = i * chunk_size
-			end = start + chunk_size - 1  
-			
-			# start a thread for each chunk
-			process = threading.Thread(target=fetchChunk, args=(url, start, end, results, i))
-			process.start() 
-			threads.append(process)
+		# calculate chunk range start and end bytes inclusive
+		start = i * chunk_size
+		end = start + chunk_size - 1  
+		
+		# start a thread for each chunk
+		process = threading.Thread(target=fetchChunk, args=(url, start, end, results, i))
+		process.start() 
+		threads.append(process)
 
 	# join threads so that main thread will pause untill all chunks are collected
 	for process in threads:
-			process.join()
+		process.join()
 
 
 	# write the chunks to the output file
+	count_bytes = 0
 	output_file = open(output_path, 'wb')
-
-	for chunk in results:	
-			output_file.write(chunk)
+	for chunk in results:
+		count_bytes += len(chunk)
+		output_file.write(chunk)
 
 	
-	return 'download complete'
+	return 'download complete: {:10f} MiB'.format(1.0 * count_bytes / 2 ** 20)
 
 
 ##############################################
