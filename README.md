@@ -6,7 +6,7 @@ The app uses `math`, `threading`, `argparse` and `urllib` packages from the pyth
 
 To run in the command line:
 
-* `python multiget.py <your.url.com/data.bin>`
+* `python multiget.py <your.url.com/data>`
 
 Optional arguments:
 
