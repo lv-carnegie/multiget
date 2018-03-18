@@ -2,7 +2,7 @@
 
 Python 3 app to download file chunks in parallel from url and save to disk
 
-The app uses `threading`, `argparse` and `urllib` packages from the python 3 standard library
+The app uses `math`, `threading`, `argparse` and `urllib` packages from the python 3 standard library
 
 To run in the command line:
 
