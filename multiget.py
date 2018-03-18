@@ -152,34 +152,30 @@ def multiGet(url, n, chunk_size, output_path, parallel):
 
 ##############################################
 
-
-#### Parse command line option
-
-parser = argparse.ArgumentParser(description='Parallel download file chunks. Default 4 chunks of size 1 MiB ')
-parser.add_argument('url',
-		help='source url')
-			
-parser.add_argument('-n', type=int, default=4,
-		help='number of chunks - default 4 chunks')
-				
-parser.add_argument('-s', type=float, default=1,
-		help='chunk size in MiB, rounded down to nearest integer - default 1 MiB')
-				
-parser.add_argument('-o', default='data.jar',
-		help='output file path - default data.jar')
-		
-parser.add_argument('-p', action='store_true',
-		help='run requests in parallel')
-
-args = parser.parse_args()
-
-
-##############################################
-
-
 #### Run main function
 
-if __name__ == "__main__":
+if __name__ == '__main__':
+
+	#### Parse command line option
+
+	parser = argparse.ArgumentParser(description='Parallel download file chunks. Default 4 chunks of size 1 MiB ')
+	parser.add_argument('url',
+			help='source url')
+				
+	parser.add_argument('-n', type=int, default=4,
+			help='number of chunks - default 4 chunks')
+					
+	parser.add_argument('-s', type=float, default=1,
+			help='chunk size in MiB, rounded down to nearest integer - default 1 MiB')
+					
+	parser.add_argument('-o', default='data.jar',
+			help='output file path - default data.jar')
+			
+	parser.add_argument('-p', action='store_true',
+			help='run requests in parallel')
+
+	args = parser.parse_args()
+
 
 	# run the main multiGet function to download file
 	# convert chunk size s from MiB to bytes and round down to nearest integer
