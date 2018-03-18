@@ -13,7 +13,7 @@ Optional arguments:
 * `-n`  integer:  number of chunks - default 4
 * `-s`  float: chunk size in MiB rounded down to nearest byte - default 1
 * `-o`  string: output file size - default data.jar
-* `-p`  flag to download in parallel
+* `-p`  optional flag to download in parallel
 
 
 Python version 3.6.4
