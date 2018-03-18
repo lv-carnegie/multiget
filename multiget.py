@@ -1,8 +1,9 @@
 
-import threading   
+   
 import argparse
 from urllib.request import urlopen, Request 
-
+import math
+import threading
 
 ##############################################
 
@@ -25,6 +26,9 @@ def multiGet(url, n, chunk_size, output_path):
 	
 	# downloads data from url and writes to output path
 	# downloads n chunks of chunk_size bytes
+	
+	
+	#### Run checks on request
 
 	# open object for reading
 	try: 
@@ -37,9 +41,20 @@ def multiGet(url, n, chunk_size, output_path):
 	# verify that the server supports range requests
 	if r.headers.get('Accept-Ranges', '') != 'bytes':
 		return 'range requests not supported'
+		
+	# check the contents size against requested size
+	# and set the number of bytes to be downloaded to the smaller value	
+	requested_length = n * chunk_size
+	content_length = int(r.headers['content-length'])	
+	download_length = min([requested_length, content_length])
+	
+	# update number of chunks to download	
+	n = int(math.ceil(download_length / chunk_size))
 
-
-			
+	
+	
+	#### Download the data
+	
 	# create list to store retrived chunks in order
 	results = [{} for i in range(n)]
 
@@ -61,7 +76,10 @@ def multiGet(url, n, chunk_size, output_path):
 	# join threads so that main thread will pause untill all chunks are collected
 	for process in threads:
 		process.join()
-
+	
+	
+	
+	#### Save to disk
 
 	# write the chunks to the output file
 	count_bytes = 0
@@ -70,7 +88,7 @@ def multiGet(url, n, chunk_size, output_path):
 		count_bytes += len(chunk)
 		output_file.write(chunk)
 
-	
+		
 	return 'download complete: {:10f} MiB'.format(1.0 * count_bytes / 2 ** 20)
 
 
@@ -98,7 +116,7 @@ args = parser.parse_args()
 ##############################################
 
 
-# run main function
+#### Run main function
 
 if __name__ == "__main__":
 
