@@ -107,8 +107,8 @@ parser.add_argument('-n', type=int, default=4,
 parser.add_argument('-s', type=float, default=1,
 		help='chunk size in MiB, rounded down to nearest integer - default 1 MiB')
 				
-parser.add_argument('-o', default='data.bin',
-		help='output file path - default data.bin')
+parser.add_argument('-o', default='data.jar',
+		help='output file path - default data.jar')
 
 args = parser.parse_args()
 
