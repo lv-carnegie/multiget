@@ -95,7 +95,7 @@ def multiGet(url, n, chunk_size, output_path):
 ##############################################
 
 
-# parse command line option
+#### Parse command line option
 
 parser = argparse.ArgumentParser(description='Parallel download file chunks. Default 4 chunks of size 1 MiB ')
 parser.add_argument('url',
