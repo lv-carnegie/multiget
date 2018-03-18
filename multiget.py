@@ -99,16 +99,16 @@ def multiGet(url, n, chunk_size, output_path):
 
 parser = argparse.ArgumentParser(description='Parallel download file chunks. Default 4 chunks of size 1 MiB ')
 parser.add_argument('url',
-        help='source url')
+		help='source url')
 			
 parser.add_argument('-n', type=int, default=4,
-        help='number of chunks - default 4 chunks')
+		help='number of chunks - default 4 chunks')
 				
 parser.add_argument('-s', type=float, default=1,
-        help='chunk size in MiB, rounded down to nearest integer - default 1 MiB')
+		help='chunk size in MiB, rounded down to nearest integer - default 1 MiB')
 				
 parser.add_argument('-o', default='data.bin',
-				help='output file path - default data.bin')
+		help='output file path - default data.bin')
 
 args = parser.parse_args()
 
